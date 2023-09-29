@@ -1,0 +1,292 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        nav {
+            width: 100%;
+            height: 60px;
+            background-color: black;
+            line-height: 65px;
+            padding: 0.5px 90px;
+            position: fixed;
+            z-index: 1;
+        }
+
+        nav .logo {
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        nav .logo p {
+            font-size: 30px;
+            float: left;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            float: right;
+        }
+
+        nav ul li {
+            display: inline-block;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            padding: 0 30px;
+        }
+
+        nav ul li a:hover {
+            color: #452edf;
+        }
+
+        .wrapper {
+            margin-top: 75px  
+            flex: 1;
+        }
+
+        .wrapper h1 {
+            color: white;
+            background: rgb(28, 24, 98);
+            border-radius: 5px;
+            margin: 25px;
+            padding: 5px;
+        }
+
+        .wrapper p {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px;
+            color: rgb(0, 0, 0);
+        }
+
+        .wrapper ul {
+            margin: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        main {
+            padding: 20px; 
+        }
+        header {
+            margin-top: 60px; 
+        }
+        .statistics {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .stat-item h3 {
+            font-size: 18px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #452edf;
+        }
+        
+        .recent-cases {
+            margin-top: 30px;
+        }
+        
+        .case {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .case h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .case-info {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .case-description {
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .footer-logo {
+            width: 150px; 
+            height: auto; 
+            display: block; 
+            margin: 0 auto; 
+            padding: 10px; 
+            border: 2px solid #fff; 
+            border-radius: 50%; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out; 
+        }
+        
+        .footer-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        
+    </style>
+</head>
+<body>
+       
+    <nav>
+        <div class="logo">
+            <p>Crime Record Management System</p>
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'report' %}">Report</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main>
+            <div class="container">
+
+            <h2>Quick Search</h2>
+            <input type="text" class="search-bar" placeholder="Search for cases, individuals, or incidents">
+            
+            <h2>Crime News</h2>
+            <div class="row">
+                <!-- Example News Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Breaking News: Arrest Made in Robbery Case</h5>
+                            <p class="card-text">Published on September 26, 2023</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel semper sapien.
+                            </p>
+                            <a href="#" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+    <canvas id="crimeChart" width="400" height="200"></canvas>
+
+    </main>
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Contact Us</h4>
+                    <p>123 Main Street</p>
+                    <p>Kathmandu, Nepal</p>
+                    <p>Phone: (+01) 456-7890</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Email</h4>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{% static 'l.png' %}" alt="Logo" width="150">
+                </div>
+            </div>
+            <p>&copy; 2023</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Get the canvas element
+        var ctx = document.getElementById('crimeChart').getContext('2d');
+    
+        // Define your data for the chart
+        var data = {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Crime Trends',
+                data: [12, 19, 3, 5, 2],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+    
+        // Create the chart
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
+

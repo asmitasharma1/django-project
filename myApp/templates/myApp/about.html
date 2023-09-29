@@ -1,0 +1,324 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <title>Crime Reporting System- Report A Crime</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
+	<style>
+		*{
+			margin: 0px;
+			padding:0px;
+			box-sizing: border-box;
+			font-family: sans-serif;
+			
+		}
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+            margin: 0;
+        }
+
+		nav{
+			width: 100%;
+			height: 60px;
+			background-color: black;
+			line-height: 65px;
+			padding:0.5px 90px;
+			position: fixed;
+			z-index : 1;
+		}
+		nav .logo{
+			font-weight: bold;
+			letter-spacing: 1.5px;
+		}
+		nav .logo p{
+			font-size: 30px;
+			float: left;
+			color: white;
+			text-transform: uppercase;
+		}
+		nav ul{
+			float:right;
+		}
+		nav ul li{
+			display: inline-block;
+			list-style: none;
+		}
+		nav ul li a{
+			color: white;
+			text-decoration: none;
+			font-size: 18px;
+			text-transform: uppercase;
+			padding: 0px 30px;
+		}
+		nav ul li a:hover{
+			color:#452edf;
+		}
+
+        .wrapper {
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .wrapper h1 {
+            background: rgb(28, 24, 98);
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 28px;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .wrapper p {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .wrapper ul {
+            margin: 30px 0;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .wrapper a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .wrapper a:hover {
+            text-decoration: underline;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        
+        .mission,
+        .vision {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin: 10px;
+        }
+        
+        .mission h2,
+        .vision h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .mission p,
+        .vision p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .team-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .team-list {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .team-member {
+            margin: 20px;
+            text-align: center;
+        }
+        
+        .team-member img {
+            width: 100px !important;
+            height: 100px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #333;
+        }
+        
+        .team-member h3 {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        
+        .team-member p {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .card:hover {
+            transform: scale(1.03);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        .card-text {
+            font-size: 1rem;
+            color: #777;
+        }
+        
+        .card + .card {
+            margin-top: 20px;
+        }    
+        
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .footer-logo {
+            width: 150px; 
+            height: auto; 
+            display: block; 
+            margin: 0 auto; 
+            padding: 10px; 
+            border: 2px solid #fff; 
+            border-radius: 50%; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out; 
+        }
+        
+        .footer-logo:hover {
+            transform: scale(1.05);
+        }
+        
+	</style>
+
+
+</head>
+<body>
+	<nav>
+		<div class="logo">
+			<p> Crime Record Management System </p>
+		</div>
+		<ul>
+			<li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'report' %}">Report</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+		</ul>
+	</nav>
+	<br><br><br><br>
+	
+	<div class="wrapper">
+        <h1>About Us</h1>
+        <div class="about-content">
+            <section class="mission">
+                <h2>Our Mission</h2>
+                <p>
+                    Our mission is to create a safer community by providing a platform for people to report crimes
+                    online and share crucial information with law enforcement. We aim to ensure that every report is
+                    promptly addressed, and we are committed to raising awareness about security and safety.
+                </p>
+            </section>
+    
+            <section class="vision">
+                <h2>Our Vision</h2>
+                <p>
+                    We envision a world where crime is deterred through community engagement and information sharing.
+                    Our vision is to empower individuals to take an active role in reporting and preventing criminal
+                    activities, ultimately contributing to a safer society.
+                </p>
+            </section>
+        </div>
+    </div>
+    
+    <div class="team-section text-center">
+        <h2>Our Team</h2>
+        <div class="d-flex justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{% static 'police1.jpg' %}" class="card-img-top" alt="Team Member 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Binod Shrestha</h5>
+                        <p class="card-text">Position: Police Comissioner</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{% static 'police2.jpg' %}" class="card-img-top" alt="Team Member 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Sakshi Kharel</h5>
+                        <p class="card-text">Position: Police Corporal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{% static 'police4.jpg' %}" class="card-img-top" alt="Team Member 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Akhilesh Sharma</h5>
+                        <p class="card-text">Position: Police Sergeant</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Contact Us</h4>
+                    <p>123 Main Street</p>
+                    <p>Kathmandu, Nepal</p>
+                    <p>Phone: (+01) 456-7890</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Email</h4>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{% static 'l.png' %}" alt="Logo" width="150">
+                </div>
+            </div>
+            <p>&copy; 2023</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</head>

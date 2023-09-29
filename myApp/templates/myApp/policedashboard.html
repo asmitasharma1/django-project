@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        
+        body, h1, h2, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #1a1a1a; /* Dark gray background for the header */
+            color: white;
+            padding: 10px 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f0f0; /* Light gray background for the main content */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        
+        .statistics {
+            background-color: #fff; /* White background for statistics section */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .statistics h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333; /* Dark text color */
+        }
+
+        .statistics-grid {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .statistic-item {
+            text-align: center;
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .statistic-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        /* Different colors for icons */
+        .icon-folder {
+            color: #F8D775; 
+        }
+
+        .icon-check {
+            color: #27ae60; 
+        }
+
+        .icon-exclamation {
+            color: #e74c3c; 
+        }
+
+        .statistic-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333; 
+        }
+
+        .cases {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .cases h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333; 
+        }
+
+        .cases-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cases-list li {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .cases-list h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333; /* Dark text color */
+        }
+
+        .cases-list p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .cases-list .status-active {
+            color: #e74c3c; 
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #1a1a1a; 
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Police Dashboard</h1>
+            </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="{% url 'complaint_list' %}">Complaints</a></li>
+                <li><a href="{% url 'policereport' %}">Reports</a></li>
+                <li><a href="{% url 'policelogout'%}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="statistics">
+            <h2>Overview Statistics</h2>
+            <div class="statistics-grid">
+                <div class="statistic-item">
+                    <div class="statistic-icon icon-folder">
+                        <i class="fas fa-folder"></i> 
+                    </div>
+                    <h3>Total Complaints</h3>
+                    <p class="statistic-value">{{ total_complaints }}</p>
+                </div>
+                <div class="statistic-item">
+                    <div class="statistic-icon icon-check">
+                        <i class="fas fa-check"></i> 
+                    </div>
+                    <h3>Solved Complaints</h3>
+                    <p class="statistic-value">{{ solved_complaints }}</p>
+                </div>
+                <div class="statistic-item">
+                    <div class="statistic-icon icon-exclamation">
+                        <i class="fas fa-exclamation-circle"></i> 
+                    </div>
+                    <h3>Active Complaints</h3>
+                    <p class="statistic-value">{{ active_complaints }}</p>
+                </div>
+            </div>
+        </section>  
+
+        <section class="cases">
+            <h2>Active Cases</h2>
+            <ul class="cases-list">
+                {% for complaint in active_complaint_data %}
+                <li>
+                    <h3>Complaint #{{ complaint.id }}</h3>
+                    <p>Description: {{ complaint.description }}</p>
+                    <p>Status: {% if complaint.is_solved %}Solved{% else %}Active{% endif %}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        
+    </main>
+    
+
+    <footer>
+        <p>&copy; 2023 Police Department</p>
+    </footer>
+</body>
+</html>

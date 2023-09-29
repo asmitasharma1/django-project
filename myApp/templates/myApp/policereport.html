@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complaints Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top:0
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        
+        .solved {
+            background-color: #5cb85c; 
+            color: white; 
+        }
+
+        
+        .mark-as-solved-button {
+            background-color: #d9534f;
+            color: white; 
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Complaints Report</h1>
+    <div class="container">
+        <label for="status-filter">Filter by Status:</label>
+<select id="status-filter">
+    <option value="all">All</option>
+    <option value="solved">Solved</option>
+    <option value="unsolved">Unsolved</option>
+</select>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Place</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.name }}</td>
+                        <td>{{ complaint.email }}</td>
+                        <td>{{ complaint.age }}</td>
+                        <td>{{ complaint.get_gender_display }}</td>
+                        <td>{{ complaint.phone }}</td>
+                        <td>{{ complaint.place }}</td>
+                        <td>{{ complaint.description }}</td>
+                        <td class="{% if complaint.is_solved %}solved{% else %}unsolved{% endif %}">
+                            {% if complaint.is_solved %}
+                                Solved
+                            {% else %}
+                                <form method="post" action="{% url 'mark_complaint_as_solved' complaint.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="mark-as-solved-button">Mark as Solved</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="8">No complaints available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            const statusFilter = document.getElementById('status-filter');
+            const complaintRows = document.querySelectorAll('tbody tr');
+        
+            statusFilter.addEventListener('change', () => {
+                const selectedStatus = statusFilter.value;
+                
+                complaintRows.forEach(row => {
+                    const statusCell = row.querySelector('td:nth-child(8)');
+
+                    if (selectedStatus === 'all' || statusCell.classList.contains(selectedStatus)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+        
+    </div>
+</body>
+</html>
