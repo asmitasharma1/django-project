@@ -97,6 +97,15 @@
             padding: 7px;
             font-size: 16px;
         }
+        .container select {
+            border: 2px solid black;
+            border-radius: 6px;
+            outline: none;
+            width: 100%;
+            margin: 0px;
+            padding: 7px;
+            font-size: 16px;
+        }
 
         .container button.btn {
             color: white;
@@ -192,6 +201,32 @@
                 <input type="text" name="gender" placeholder="Enter Your Gender (M/F)" required>
                 <label for="phone"><strong>Contact no</strong></label>
                 <input type="text" name="phone" placeholder="Enter Your Phone Number (max. 10 characters)" required>
+                <label for="category"><strong>Crime Category</strong></label>
+                <select name="category" id="crimeCategory" required>
+                    <option value="" disabled selected>Select a Crime Category</option>
+                    <option value="robbery">Robbery</option>
+                    <option value="assault">Assault</option>
+                    <option value="fraud">Fraud</option>
+                    <option value="murder">murder</option>
+                    <option value="burglary">Burglary</option>
+                    <option value="abuse">Abuse</option>
+                    <option value="kidnapping">Kidnapping</option>
+                    <option value="cybercrime">Cyber Crime</option>
+                    <option value="Other">Other</option>
+                </select>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var crimeCategory = document.getElementById('crimeCategory');
+                        if (crimeCategory) {
+                            crimeCategory.style.color = '#888';
+                
+                            crimeCategory.addEventListener('change', function () {
+                                this.style.color = (this.value === '') ? '#888' : '#000';
+                            });
+                        }
+                    });
+                </script>
+                
                 <label for="place"><strong>Location</strong></label>
                 <input type="text" name="place" placeholder="Enter the Location of the Crime" required>
                 <label for="description"><strong>Description</strong></label>
@@ -202,6 +237,7 @@
 
         </div>
     </div>
+    
     <div class="text-center mt-3">
         <a href="{% url 'mycomplaints' %}" class="btn btn-primary my-custom-button">View My Complaints</a><br><br>
     </div>
@@ -228,6 +264,7 @@
             <p>&copy; 2023</p>
         </div>
     </footer>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

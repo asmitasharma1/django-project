@@ -29,6 +29,19 @@ class Complaint(models.Model):
     place = models.CharField(max_length=100)
     description = models.TextField()
     is_solved = models.BooleanField(default=False)
+    CATEGORY_CHOICES = [
+        ('robbery', 'Robbery'),
+        ('assault', 'Assault'),
+        ('fraud', 'Fraud'),
+        ('murder', 'Murder'),
+        ('burglary', 'Burglary'),
+        ('abuse', 'Abuse'),
+        ('kidnapping', 'Kidnapping'),
+        ('cybercrime', 'Cyber Crime'),
+        ('other', 'Other'),
+    ]
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
 
     def __str__(self):
         return self.name  

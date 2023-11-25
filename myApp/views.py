@@ -17,10 +17,8 @@ from django.template import TemplateDoesNotExist
 
 def html_page(request, page):
     try:
-        # Render the HTML page based on the requested page name
         return render(request, f'myApp/{page}.html')
     except TemplateDoesNotExist:
-        # Raise a 404 error if the requested page doesn't exist
         raise Http404
 
 def about(request):
@@ -38,15 +36,15 @@ def signup(request):
         email = request.POST['email']
         phone = request.POST['phone']
 
-        # Check if a user with the same username already exists
+    
         if User.objects.filter(username=username).exists():
             return render(request, 'myApp/signup.html', {'error_message': 'Username already exists. Please choose a different one.'})
 
-        # Create the user
+      
         user = User.objects.create_user(username=username, password=password, email=email)
         user.save()
 
-        # Create a user profile and associate it with the user
+       
         profile = Profile(user=user, age=age, address=address, phone=phone)
         profile.save()
         
@@ -54,7 +52,7 @@ def signup(request):
         if user is not None:
             if login(request, user):
                 print("User is successfully authenticated and logged in.")
-                # Redirect to the home page or another page as needed
+               
                 return redirect('home')
             else:
                 print("Login failed.")
@@ -82,6 +80,7 @@ def userlogin(request):
             login(request, user)
             return redirect('home')
         else:
+            
             return render(request, 'myApp/userlogin.html', {'error_message': 'Invalid credentials. Please try again.'})
     return render(request, 'myApp/userlogin.html')
 
@@ -102,10 +101,8 @@ def policelogin(request):
             policeofficer = None
 
         if user is not None and user.check_password(password) and policeofficer is not None:
-            # User with the provided email exists, password is correct, and has a PoliceOfficer instance
-            # Log in the user
             login(request, user)
-            return redirect('policedashboard')  # Redirect to the police dashboard
+            return redirect('policedashboard')  
         else:
             error_message = "Invalid email or password for police login. Please try again."
             return render(request, 'myApp/policelogin.html', {'error_message': error_message})

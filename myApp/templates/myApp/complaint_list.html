@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Complaints</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,8 +15,25 @@
             background-color: #333;
             color: #fff;
             text-align: center;
-            padding: 20px 0;
-            margin-top:0
+            padding: 15px 0;
+            margin-top:0;
+        }
+        .home-button {
+            margin-right: auto; 
+            margin-left: 20px;
+            
+        }
+
+        .home-button a {
+            text-decoration: none;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .home-button a:hover {
+            background-color: #555;
         }
 
         ul {
@@ -35,10 +53,16 @@
         strong {
             font-weight: bold;
         }
+        
     </style>
 </head>
 <body>
-    <h1>User Complaints</h1>
+
+       <h1><i class="fas fa-file-alt"></i> User Complaints</h1>
+       <div class="home-button">
+        <a href="{% url 'policedashboard' %}"><i class="fas fa-home"></i> Home</a>
+    </div>
+
     <ul>
         {% for complaint in complaints %}
             <li>
@@ -47,6 +71,7 @@
                 <strong>Age:</strong> {{ complaint.age }}<br>
                 <strong>Gender:</strong> {{ complaint.get_gender_display }}<br>
                 <strong>Phone:</strong> {{ complaint.phone }}<br>
+                <strong>Category:</strong> {{ complaint.get_category_display }}<br>
                 <strong>Place:</strong> {{ complaint.place }}<br>
                 <strong>Description:</strong> {{ complaint.description }}<br>
             </li>
