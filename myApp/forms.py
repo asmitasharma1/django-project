@@ -1,5 +1,5 @@
 from django import forms
-from .models import Complaint
+from .models import Complaint, MissingPerson
 
 
 class ComplaintForm(forms.ModelForm):
@@ -19,6 +19,18 @@ class ComplaintForm(forms.ModelForm):
             'place': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
         }  
+class MissingPersonForm(forms.ModelForm):
+    class Meta:
+        model = MissingPerson
+        fields = ['name', 'missing_person_name', 'missing_person_description', 'age', 'gender', 'contact_number', 'missing_person_photo']
+
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Enter Your Name'}),
+            'missing_person_name': forms.TextInput(attrs={'placeholder': 'Enter Missing Person\'s Name'}),
+            'missing_person_description': forms.Textarea(attrs={'placeholder': 'Enter the details of the missing person...'}),
+            'age': forms.TextInput(attrs={'placeholder': 'Enter Missing Person\'s Age'}),
+            'contact_number': forms.TextInput(attrs={'placeholder': 'Enter Your Contact Number'}),
+        }
 
 
  

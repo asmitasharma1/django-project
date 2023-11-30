@@ -152,6 +152,11 @@
             color: #e74c3c; 
             font-weight: bold;
         }
+        .portrait-image {
+            max-height: 300px; /* Adjust the maximum height as needed */
+            max-width: 200px;  /* Adjust the maximum width as needed */
+        }
+        
 
         footer {
             background-color: #1a1a1a; 
@@ -217,7 +222,41 @@
                 {% endfor %}
             </ul>
         </section>
-        
+        <section class="missing-persons">
+            <h2>Missing Persons Overview</h2>
+            <div class="statistics-grid">
+                <div class="statistic-item">
+                    <div class="statistic-icon icon-folder">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <h3>Total Missing Persons Reports</h3>
+                    <p class="statistic-value">{{ total_missing_persons }}</p>
+                </div>
+            </div>
+        </section>
+    
+        <section class="missing-person-cases">
+            <h2>Missing Persons Cases</h2>
+            <ul class="cases-list">
+                {% for missing_person in missing_person_cases %}
+                <li>
+                    <h3>Missing Person Report #{{ missing_person.id }}</h3>
+                        <p>Name: {{ missing_person.missing_person_name }}</p>
+                        <p>Age: {{ missing_person.age }}</p>
+                        <p>Gender: {{ missing_person.gender }}</p>
+                        <p>Contact Number: {{ missing_person.contact_number }}</p>
+                        <p>Description: {{ missing_person.missing_person_description }}</p>
+                        <p>Photo: 
+                            {% if missing_person.missing_person_photo %}
+                                <img src="{{ missing_person.missing_person_photo.url }}" alt="Missing Person Photo" class="portrait-image">
+                            {% else %}
+                                No photo available
+                            {% endif %}
+                        </p>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>    
     </main>
     
 

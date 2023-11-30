@@ -103,54 +103,34 @@
         header {
             margin-top: 60px; 
         }
-        .statistics {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .stat-item {
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            flex: 1;
-            margin: 0 10px;
-        }
-        
-        .stat-item h3 {
-            font-size: 18px;
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #452edf;
-        }
-        
-        .recent-cases {
-            margin-top: 30px;
-        }
-        
-        .case {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
+        .section-title {
+            color: black;
             margin-bottom: 15px;
         }
-        
-        .case h3 {
+
+        .section-description {
             font-size: 18px;
-            margin-bottom: 5px;
+            color: #333;
+            margin-bottom: 30px;
         }
-        
-        .case-info {
-            font-size: 14px;
-            color: #777;
+
+        .emergency-info {
+            margin-top: 20px;
         }
-        
-        .case-description {
-            font-size: 16px;
+
+        .alert-box {
+            background-color: rgba(255, 193, 7, 0.6);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert-icon {
+            margin-right: 15px;
+            font-size: 24px;
+            color: #c82333; 
         }
 
         footer {
@@ -193,30 +173,26 @@
     </nav>
 
     <main>
-            <div class="container">
+        <div class="container"  style="margin-top: 80px;">
+            <section id="report-section">
+                <h2 class="section-title">Report a Crime</h2>
+                <p class="section-description">Find out who to contact to get immediate help in an emergency, file a police report, and report different types of crime.</p>
 
-            <h2>Quick Search</h2>
-            <input type="text" class="search-bar" placeholder="Search for cases, individuals, or incidents">
-            
-            <h2>Crime News</h2>
-            <div class="row">
-                <!-- Example News Card -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Breaking News: Arrest Made in Robbery Case</h5>
-                            <p class="card-text">Published on September 26, 2023</p>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel semper sapien.
-                            </p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
+                <div class="emergency-info">
+                    <div class="alert-box">
+                        <span class="alert-icon">&#9888;</span> 
+                        <p>If you are experiencing an emergency, dial 100 immediately.</p>
                     </div>
+                    <p>To report an emergency outside your area, contact the local law enforcement agency where the emergency is taking place. Find their 10-digit phone number on their website.</p>
                 </div>
+            </section>
 
-    <canvas id="crimeChart" width="400" height="200"></canvas>
+            <!-- Add more sections as needed -->
 
+        </div>
     </main>
+
+   
     <footer class="bg-dark text-white text-center py-3">
         <div class="container">
             <div class="row">
@@ -240,47 +216,7 @@
         </div>
     </footer>
     
-    <script>
-        // Get the canvas element
-        var ctx = document.getElementById('crimeChart').getContext('2d');
-    
-        // Define your data for the chart
-        var data = {
-            labels: ['January', 'February', 'March', 'April', 'May'],
-            datasets: [{
-                label: 'Crime Trends',
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-    
-        // Create the chart
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
+   
     
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

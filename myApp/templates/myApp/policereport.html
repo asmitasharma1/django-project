@@ -87,6 +87,10 @@
             border-radius: 3px;
             cursor: pointer;
         }
+        .portrait-image {
+            max-height: 300px; /* Adjust the maximum height as needed */
+            max-width: 200px;  /* Adjust the maximum width as needed */
+        }
         
     </style>
 </head>
@@ -167,6 +171,42 @@
             });
         </script>
         
+    </div>
+    
+    <h1>Missing Persons Report</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Complaint</th>
+                    <th>Missing Person Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Contact Number</th>
+                    <th>Missing Person Description</th>
+                    <th>Missing Person Photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for missingperson in missingpersons %}
+                <tr>
+                    <td>{{ missingperson.name }}</td>
+                    <td>{{ missingperson.missing_person_name }}</td>
+                    <td>{{ missingperson.age }}</td>
+                    <td>{{ missingperson.gender }}</td>
+                    <td>{{ missingperson.contact_number }}</td>
+                    <td>{{ missingperson.missing_person_description }}</td>
+                    <td>
+                        {% if missingperson.missing_person_photo %}
+                            <img src="{{ missingperson.missing_person_photo.url }}" alt="Missing Person Photo" class="portrait-image">
+                        {% else %}
+                            No photo available
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

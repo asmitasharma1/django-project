@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import ComplaintForm 
-from .models import PoliceOfficer, Profile, Complaint
+from .forms import ComplaintForm,MissingPersonForm 
+from .models import PoliceOfficer, Profile, Complaint, MissingPerson
 from django.contrib.auth import get_user_model
 from myApp.models import Complaint
 
@@ -125,6 +125,9 @@ def home(request):
 def report(request):
     return render(request, 'myApp/report.html')
 
+def missingreport(request):
+    return render(request, 'myApp/missingreport.html')
+
 def complaintsuccess(request):
     if request.method == 'POST':
         form = ComplaintForm(request.POST)
@@ -138,11 +141,29 @@ def complaintsuccess(request):
 
     return render(request, 'myApp/complaintsuccess.html', {'form': form})
 
+def missingpersonsuccess(request):
+    if request.method == 'POST':
+        form = MissingPersonForm(request.POST, request.FILES)
+        if form.is_valid():
+            
+            form.save()
+           
+            return redirect('missingpersonsuccess')  
+    else:
+        form = MissingPersonForm()  
+
+    return render(request, 'myApp/missingpersonsuccess.html', {'form': form})
+
 def mycomplaints(request):
     email = request.user.email
     complaints = Complaint.objects.filter(email=email)
     
     return render(request, 'myApp/mycomplaints.html', {'complaints': complaints})
+def mymissingpersons(request):
+    
+    missingpersons = MissingPerson.objects.all()
+    
+    return render(request, 'myApp/mymissingpersons.html', {'missingpersons': missingpersons})
 
 @login_required
 def policedashboard(request):
@@ -150,13 +171,16 @@ def policedashboard(request):
     solved_complaints = Complaint.objects.filter(is_solved=True).count()
     active_complaints = Complaint.objects.filter(is_solved=False).count()
 
-    active_complaint_data = Complaint.objects.filter(is_solved=False)  
+    active_complaint_data = Complaint.objects.filter(is_solved=False) 
+    missing_person_cases = MissingPerson.objects.all() 
 
     return render(request, 'myApp/policedashboard.html', {
         'total_complaints': total_complaints,
         'solved_complaints': solved_complaints,
         'active_complaints': active_complaints,
         'active_complaint_data': active_complaint_data,
+        'total_missing_persons': missing_person_cases.count(),
+        'missing_person_cases': missing_person_cases,
     })
 
 def userlogout(request):
@@ -170,7 +194,8 @@ def complaint_list(request):
 
 def policereport(request):
     complaints = Complaint.objects.all() 
-    return render(request, 'myApp/policereport.html', {'complaints': complaints})
+    missingpersons = MissingPerson.objects.all()
+    return render(request, 'myApp/policereport.html', {'complaints': complaints, 'missingpersons': missingpersons})
 
 def mark_complaint_as_solved(request, complaint_id):
     complaint = Complaint.objects.get(id=complaint_id)

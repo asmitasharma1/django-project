@@ -1,0 +1,192 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>View My Complaints - Crime Record Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
+	<style>
+		*{
+			margin: 0px;
+			padding:0px;
+			box-sizing: border-box;
+			font-family: sans-serif;
+			
+		}
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+            margin: 0;
+        }
+
+		nav{
+			width: 100%;
+			height: 60px;
+			background-color: black;
+			line-height: 65px;
+			padding:0.5px 90px;
+			position: fixed;
+			z-index : 1;
+		}
+		nav .logo{
+			font-weight: bold;
+			letter-spacing: 1.5px;
+		}
+		nav .logo p{
+			font-size: 30px;
+			float: left;
+			color: white;
+			text-transform: uppercase;
+		}
+		nav ul{
+			float:right;
+		}
+		nav ul li{
+			display: inline-block;
+			list-style: none;
+		}
+		nav ul li a{
+			color: white;
+			text-decoration: none;
+			font-size: 18px;
+			text-transform: uppercase;
+			padding: 0px 30px;
+		}
+		nav ul li a:hover{
+			color:#452edf;
+		}
+
+        .container {
+            margin: 100px auto; /* Adjust the top margin to center the content vertically */
+            text-align: center;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .container h1 {
+            background: rgb(28, 24, 98);
+            color: white;
+            border-radius: 5px;
+            margin: 25px auto; /* Center the heading */
+            padding: 10px 0;
+            font-size: 24px; /* Increase the font size */
+        }
+
+        .container ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .container li {
+            margin: 20px 0;
+        }
+
+        .container p {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+		
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .footer-logo {
+            width: 150px; 
+            height: auto; 
+            display: block; 
+            margin: 0 auto; 
+            padding: 10px; 
+            border: 2px solid #fff; 
+            border-radius: 50%; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out; 
+        }
+        
+        .footer-logo:hover {
+            transform: scale(1.05);
+        }
+        
+	</style>
+</head>
+<body>
+    <nav>
+		<div class="logo">
+			<p> Crime Record Management System </p>
+		</div>
+		<ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'report' %}">Report</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+        
+	</nav>
+	<br><br><br><br>
+
+    <div class="container">
+        <h1>My Complaints</h1>
+        {% if mymissingpersons %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Photo</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mymissingperson in mymissingpersons%}
+                        <tr>
+                            <td>{{ mymissingperson.name }}</td>
+                            <td>{{ mymissingperson.description }}</td>
+                            <td>{{ mymissingperson.photo}}</td>
+                           
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You have no filed complaints yet.</p>
+        {% endif %}
+    </div>
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container1">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Contact Us</h4>
+                    <p>123 Main Street</p>
+                    <p>Kathmandu, Nepal</p>
+                    <p>Phone: (+01) 456-7890</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Email</h4>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{% static 'l.png' %}" alt="Logo" width="150">
+                </div>
+            </div>
+            <p>&copy; 2023</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>

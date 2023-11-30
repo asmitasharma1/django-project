@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
-from .models import Complaint
+from .models import Complaint, MissingPerson
 from .models import PoliceOfficer
 
 User = get_user_model()
@@ -22,3 +22,4 @@ admin.site.register(User, CustomUserAdmin)
 
 
 admin.site.register(Complaint)
+admin.site.register(MissingPerson)

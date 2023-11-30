@@ -43,6 +43,15 @@ class Complaint(models.Model):
 
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
 
+class MissingPerson(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    missing_person_name = models.CharField(max_length=255, blank=True, null=True)
+    missing_person_description = models.TextField(blank=True, null=True)
+    missing_person_photo = models.ImageField(upload_to='missing_person_photo/', blank=True, null=True)
+    age = models.IntegerField(default=1)
+    gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')],blank=True, null=True)
+    contact_number = models.CharField(max_length=10, blank=True, null=True)
+    
     def __str__(self):
-        return self.name  
+        return self.missing_person_name
 

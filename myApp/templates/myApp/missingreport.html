@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Crime Record Management System - Missing Person Report</title>
+    <style>
+        *{
+			margin: 0px;
+			padding:0px;
+			box-sizing: border-box;
+			font-family: sans-serif;
+			
+		}
+        body {
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+
+        nav{
+			width: 100%;
+			height: 60px;
+			background-color: rgb(21, 21, 21);
+			line-height: 65px;
+			padding: 0.5px 90px;
+			position: fixed;
+			z-index : 1;
+		}
+        nav .logo{
+			font-weight: bold;
+			letter-spacing: 1.5px;
+		}
+
+		nav .logo p{
+			font-size: 30px;
+			float: left;
+			color: white;
+			text-transform: uppercase;
+		}
+		nav ul{
+			float:right;
+		}
+		nav ul li{
+			display: inline-block;
+			list-style: none;
+		}
+		nav ul li a{
+			color: white;
+			text-decoration: none;
+			font-size: 18px;
+			text-transform: uppercase;
+			padding: 0px 30px;
+		}
+		nav ul li a:hover{
+			color:#452edf;
+		}
+		
+        .page-wrapper {
+            background-color: #f5f5f5;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .heading {
+            text-align: center;
+        }
+        .heading-wrapper .heading h1 {
+            color: white;
+            background-color: rgb(28, 24, 98);
+            border-radius: 5px;
+            margin: 25px;
+            padding: 5px;
+        }
+
+        .container input,
+        .container textarea {
+            border: 2px solid black;
+            border-radius: 6px;
+            outline: none;
+            width: 100%;
+            margin: 0px;
+            padding: 7px;
+            font-size: 16px;
+        }
+        .container select {
+            border: 2px solid black;
+            border-radius: 6px;
+            outline: none;
+            width: 100%;
+            margin: 0px;
+            padding: 7px;
+            font-size: 16px;
+        }
+
+        .container button.btn {
+            color: white;
+            background: rgb(70, 72, 189);
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid white;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submitmsg {
+            font-size: 25px;
+            color: rgb(48, 50, 162);
+            text-align: center;
+        }
+        .my-custom-button {
+            background-color: rgb(70, 72, 189);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            display: inline-block; 
+        }
+        
+        .my-custom-button:hover {
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+        
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .footer-logo {
+            width: 150px; 
+            height: auto; 
+            display: block; 
+            margin: 0 auto; 
+            padding: 10px; 
+            border: 2px solid #fff; 
+            border-radius: 50%; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out; 
+        }
+        
+        .footer-logo:hover {
+            transform: scale(1.05);
+        }
+        
+
+    </style>
+</head>
+<body style="background-image: url('{% static "./static/cr.jpg" %}');">
+    <nav>
+        <div class="logo">
+            <p>Crime Record Management System</p>
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'report' %}">Report</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <br><br>
+    <main>
+        <div class="page-wrapper">
+            <div class="container">
+                <!-- Missing Person Report Form -->
+                <div class="heading-wrapper">
+                    <span class="heading"> <h1>Report A Missing Person</h1> </span>
+                </div>
+                <form action="{% url 'missingpersonsuccess' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="name"><strong>Name</strong></label>
+                    <input type="text" name="name" placeholder="Enter Your Name" required>
+                    
+                    <label for="missing_person_name"><strong>Missing Person's Name</strong></label>
+                    <input type="text" name="missing_person_name" placeholder="Enter Missing Person's Name" required>
+                    <label for="age"><strong>Age</strong></label>
+                    <input type="text" name="age" placeholder="Enter Missing Person's Age" required>
+                    
+                    <label for="gender"><strong>Gender</strong></label>
+                    <select name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <label for="contact_number"><strong>Contact Number</strong></label>
+                    <input type="text" name="contact_number" placeholder="Enter Your Contact Number" required>
+                    <label for="missing_person_description"><strong>Description of the Missing Person</strong></label>
+                    <textarea name="missing_person_description" cols="30" rows="10" placeholder="Enter the details of the missing person..." required></textarea>
+                    <label for="missing_person_photo"><strong>Photo of the Missing Person</strong></label>
+                    <input type="file" name="missing_person_photo" accept="image/*">
+
+                    <button class="btn">Submit Missing Person Report</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="text-center mt-3">
+            <a href="{% url 'report' %}" class="btn btn-primary my-custom-button">Report Crime</a>
+        </div>
+    </main> 
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container1">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Contact Us</h4>
+                    <p>123 Main Street</p>
+                    <p>Kathmandu, Nepal</p>
+                    <p>Phone: (+01) 456-7890</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Email</h4>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{% static 'l.png' %}" alt="Logo" width="150">
+                </div>
+            </div>
+            <p>&copy; 2023</p>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
